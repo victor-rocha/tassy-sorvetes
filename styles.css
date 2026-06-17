@@ -7,9 +7,6 @@
   --roxo-bg:     #F0E6F8;
   --verde:       #7DC242;
   --verde-escuro:#5A9A2C;
-  --pink:        #D81B7C;
-  --pink-claro:  #F9D0EB;
-  --pink-bg:     #FDF0F8;
   --verde-claro: #B8DF7A;
   --verde-bg:    #EDF7E2;
   --acai:        #5C1A8E;
@@ -135,9 +132,9 @@ header img {
   cursor: default;
 }
 
-.pill:hover                    { opacity: 0.85; }
-.pill.empty                    { border: none; background: transparent !important; }
-.pill[data-flavor]             { cursor: pointer; }
+.pill:hover                 { opacity: 0.85; }
+.pill.empty                 { border: none; background: transparent !important; }
+.pill[data-flavor]          { cursor: pointer; }
 .pill[data-flavor].selected {
   display: flex;
   align-items: center;
@@ -249,7 +246,6 @@ header img {
 .order-cart-price { font-size: 1rem; }
 
 .order-cart-btn {
-  /* background: #25D366; */
   background: #1ebe5a;
   color: #fff;
   border: none;
@@ -266,8 +262,9 @@ header img {
   gap: 7px;
   flex-shrink: 0;
 }
-.order-cart-btn:hover  { background: #1ebe5a; }
+.order-cart-btn:hover  { background: #19a84d; }
 .order-cart-btn:active { transform: scale(0.95); }
+
 .wpp-icon {
   width: 18px;
   height: 18px;
@@ -294,7 +291,6 @@ header img {
   background: rgba(255,255,255,0.08);
 }
 
-/* Padding at bottom when cart bar is visible */
 body.has-cart .page { padding-bottom: 64px; }
 
 /* ── PICOLÉS BULK NOTE ── */
@@ -309,7 +305,6 @@ body.has-cart .page { padding-bottom: 64px; }
 }
 .picoles-bulk-note.active {
   opacity: 1;
-  color: var(--verde-escuro);
   font-size: 0.85rem;
 }
 .picoles-bulk-note.active::before { content: '✅ Desconto aplicado! '; }
@@ -351,23 +346,15 @@ body.has-cart .page { padding-bottom: 64px; }
 
 .picoles-cols {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0;
   align-items: start;
 }
-.picoles-col {
-  padding: 0 14px;
-}
-.picoles-col .grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.picoles-col:first-child {
-  border-right: 2px solid var(--verde-claro);
-  padding-left: 0;
-}
-.picoles-col:last-child {
-  padding-right: 0;
-}
+.picoles-col { padding: 0 14px; }
+.picoles-col .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.picoles-col:first-child { border-right: 2px solid var(--verde-claro); padding-left: 0; }
+.picoles-col:last-child  { padding-right: 0; }
+
 .picoles-col-label {
   font-size: 0.78rem;
   font-weight: 800;
@@ -378,23 +365,25 @@ body.has-cart .page { padding-bottom: 64px; }
   margin: 0 0 8px;
 }
 .picoles-col-sublabel {
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--verde-escuro);
-  text-align: center;
-  margin: 12px 0 8px;
+  margin-top: 12px;
 }
 
 /* ── AÇAÍ ── */
-#acai                        { background: var(--acai-bg); }
-#acai .sec-header h2         { color: var(--acai); }
-#acai .sec-header p          { color: var(--acai-medio); font-size: 0.85rem; font-weight: 700; }
-#acai .badge                 { background: var(--acai); color: var(--branco); }
-#acai .badge.alt             { background: var(--verde); color: var(--branco); }
-#acai .pill                  { background: var(--branco); border-color: #C9A0E8; color: var(--acai); }
-#acai .tier-label            { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--acai-medio); margin: 16px 0 8px; }
+#acai                  { background: var(--acai-bg); }
+#acai .sec-header h2   { color: var(--acai); }
+#acai .sec-header p    { color: var(--acai-medio); font-size: 0.85rem; font-weight: 700; }
+#acai .badge           { background: var(--acai); color: var(--branco); }
+#acai .badge.alt       { background: var(--verde); color: var(--branco); }
+#acai .pill            { background: var(--branco); border-color: #C9A0E8; color: var(--acai); }
+#acai .tier-label      {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--acai-medio);
+  text-align: center;
+  margin: 16px 0 8px;
+}
 
 /* ── FOOTER ── */
 footer {
@@ -429,7 +418,7 @@ footer .whatsapp-link:hover { opacity: 0.8; }
   opacity: 0.22;
 }
 @media (min-width: 1100px) {
-  .side-deco       { display: block; }
-  .side-deco--left  { left: 1.5vw; }
-  .side-deco--right { right: 1.5vw; }
+  .side-deco            { display: block; }
+  .side-deco--left      { left: 1.5vw; }
+  .side-deco--right     { right: 1.5vw; }
 }

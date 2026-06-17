@@ -1,6 +1,5 @@
 const cart = { sorvetes: {}, picoles: {}, acai: {} };
 
-// Picolés pricing: regular items get a bulk discount at 10+ units; especiais never discount
 const PICOLES_BULK_MIN = 10;
 const PICOLES_ESPECIAIS = new Set(['Chocolate', 'Flocos']);
 
@@ -23,22 +22,7 @@ function getItemPrice(cat, flavor) {
   return parseFloat(el.dataset.price || 0);
 }
 
-function renderPillControls(el, qty) {
-  const flavor = el.dataset.flavor;
-  if (qty > 0) {
-    el.classList.add('selected');
-    el.innerHTML =
-      `<button class="pill-ctrl" data-action="dec">−</button>` +
-      `<span class="pill-name">${flavor}</span>` +
-      `<span class="pill-cnt">${qty}</span>` +
-      `<button class="pill-ctrl" data-action="inc">+</button>`;
-  } else {
-    el.classList.remove('selected');
-    el.textContent = flavor;
-  }
-}
-
-function renderPremiumControls(el, qty) {
+function renderControls(el, qty) {
   const flavor = el.dataset.flavor;
   if (qty > 0) {
     el.classList.add('selected');
@@ -60,10 +44,7 @@ function updateItem(cat, flavor, delta) {
   else cart[cat][flavor] = next;
 
   const el = document.querySelector(`[data-category="${cat}"][data-flavor="${CSS.escape(flavor)}"]`);
-  if (el) {
-    if (el.classList.contains('premium-card')) renderPremiumControls(el, cart[cat][flavor] || 0);
-    else renderPillControls(el, cart[cat][flavor] || 0);
-  }
+  if (el) renderControls(el, cart[cat][flavor] || 0);
 
   const pw = document.getElementById('picoles-warning');
   if (pw) {
@@ -72,14 +53,13 @@ function updateItem(cat, flavor, delta) {
     pw.textContent = `⚠️ Mínimo de 5 picolés por pedido (${pt}/5 selecionados)`;
   }
 
-  // Update bulk-pricing badge and note
   const regCount = regularPicolesCount();
   const bulkActive = regCount >= PICOLES_BULK_MIN;
   const priceBadge = document.getElementById('picoles-price-badge');
   const bulkNote   = document.getElementById('picoles-bulk-note');
   const onlyNote   = document.getElementById('picoles-only-warning');
-  if (priceBadge) priceBadge.textContent = bulkActive ? 'R$ 1,20 / un.' : 'R$ 1,50 / un.';
-  if (bulkNote)   bulkNote.className  = 'picoles-bulk-note'  + (bulkActive ? ' active' : '');
+  if (priceBadge) priceBadge.textContent = bulkActive ? 'R$ 1,20 / un.' : 'R$ 1,50 / un.';
+  if (bulkNote)   bulkNote.className = 'picoles-bulk-note' + (bulkActive ? ' active' : '');
   if (onlyNote) {
     const picOnly = picolesTotal() > 0 && !Object.keys(cart.sorvetes).length && !Object.keys(cart.acai).length;
     onlyNote.className = 'picoles-warning' + (picOnly ? ' show' : '');
@@ -114,7 +94,7 @@ document.addEventListener('click', e => {
 
   if (action === 'dec') { e.stopPropagation(); updateItem(cat, flavor, -1); }
   else if (action === 'inc') { e.stopPropagation(); updateItem(cat, flavor, +1); }
-  else { updateItem(cat, flavor, +1); }
+  else updateItem(cat, flavor, +1);
 });
 
 document.getElementById('order-btn').addEventListener('click', () => {
@@ -123,8 +103,8 @@ document.getElementById('order-btn').addEventListener('click', () => {
     alert(`Mínimo de 5 picolés por pedido!\nVocê tem ${pt} selecionado(s).`);
     return;
   }
-  const hasDelivery = Object.keys(cart.sorvetes).length > 0 || Object.keys(cart.acai).length > 0;
 
+  const hasDelivery = Object.keys(cart.sorvetes).length > 0 || Object.keys(cart.acai).length > 0;
   const labels = { sorvetes: 'Sorvetes (10L)', picoles: 'Picolés', acai: 'Açaí (10L)' };
   let msg = 'Olá! Gostaria de fazer um pedido, por favor:\n\n';
   let grandTotal = 0;
@@ -147,25 +127,20 @@ document.getElementById('order-btn').addEventListener('click', () => {
 });
 
 document.getElementById('cart-clear').addEventListener('click', () => {
-  Object.keys(cart).forEach(cat => cart[cat] = {});
-  document.querySelectorAll('[data-flavor]').forEach(el => {
-    const flavor = el.dataset.flavor;
+  Object.keys(cart).forEach(cat => { cart[cat] = {}; });
+  document.querySelectorAll('[data-flavor].selected').forEach(el => {
     el.classList.remove('selected');
-    el.textContent = flavor;
+    el.textContent = el.dataset.flavor;
   });
-  const pw = document.getElementById('picoles-warning');
-  if (pw) pw.classList.remove('show');
-  const ow = document.getElementById('picoles-only-warning');
-  if (ow) ow.classList.remove('show');
-  const priceBadge = document.getElementById('picoles-price-badge');
-  const bulkNote   = document.getElementById('picoles-bulk-note');
-  if (priceBadge) priceBadge.textContent = 'R$ 1,50 / un.';
-  if (bulkNote)   bulkNote.classList.remove('active');
+  document.getElementById('picoles-warning')?.classList.remove('show');
+  document.getElementById('picoles-only-warning')?.classList.remove('show');
+  document.getElementById('picoles-price-badge').textContent = 'R$ 1,50 / un.';
+  document.getElementById('picoles-bulk-note').classList.remove('active');
   document.getElementById('order-cart').classList.add('hidden');
   document.body.classList.remove('has-cart');
 });
 
-const sections = ['sorvetes','picoles','acai'].map(id => document.getElementById(id));
+const sections = ['sorvetes', 'picoles', 'acai'].map(id => document.getElementById(id));
 const links    = document.querySelectorAll('nav a');
 const nav      = document.getElementById('main-nav');
 
