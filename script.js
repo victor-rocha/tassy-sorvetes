@@ -94,7 +94,7 @@ document.addEventListener('click', e => {
 
   if (action === 'dec') { e.stopPropagation(); updateItem(cat, flavor, -1); }
   else if (action === 'inc') { e.stopPropagation(); updateItem(cat, flavor, +1); }
-  else updateItem(cat, flavor, +1);
+  else if (!el.classList.contains('selected')) updateItem(cat, flavor, +1);
 });
 
 document.getElementById('order-btn').addEventListener('click', () => {

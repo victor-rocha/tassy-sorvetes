@@ -144,17 +144,23 @@ header img {
 }
 
 .pill-ctrl {
-  background: none;
+  background: rgba(0,0,0,0.12);
   border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
   font-size: 1.1rem;
   font-weight: 900;
   cursor: pointer;
   color: inherit;
-  padding: 0 3px;
   line-height: 1;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.pill-ctrl:hover { opacity: 0.6; }
+.pill-ctrl:hover  { background: rgba(0,0,0,0.22); }
+.pill-ctrl:active { background: rgba(0,0,0,0.32); }
 
 .pill-name {
   flex: 1;
@@ -293,7 +299,7 @@ header img {
 
 body.has-cart .page { padding-bottom: 64px; }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .order-cart {
     flex-wrap: wrap;
     row-gap: 8px;
