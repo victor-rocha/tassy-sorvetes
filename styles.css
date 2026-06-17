@@ -293,6 +293,19 @@ header img {
 
 body.has-cart .page { padding-bottom: 64px; }
 
+@media (max-width: 480px) {
+  .order-cart {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    padding: 10px 12px;
+  }
+  .order-cart-info { flex: 1; white-space: nowrap; }
+  .order-cart-btn  { flex: 0 0 100%; justify-content: center; }
+  body.has-cart .page { padding-bottom: 96px; }
+
+  .picoles-col .grid { grid-template-columns: 1fr; }
+}
+
 /* ── PICOLÉS BULK NOTE ── */
 .picoles-bulk-note {
   text-align: center;

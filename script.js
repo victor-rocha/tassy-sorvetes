@@ -80,7 +80,7 @@ function updateItem(cat, flavor, delta) {
   } else {
     bar.classList.remove('hidden');
     document.body.classList.add('has-cart');
-    document.getElementById('cart-qty').textContent = totalQty;
+    document.getElementById('cart-qty').textContent = `${totalQty} ${totalQty === 1 ? 'item' : 'itens'}`;
     document.getElementById('cart-total').textContent = totalPrice.toFixed(2).replace('.', ',');
   }
 }
