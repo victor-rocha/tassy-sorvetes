@@ -355,11 +355,11 @@ body.has-cart .page { padding-bottom: 64px; }
 #sorvetes                    { background: var(--branco); }
 #sorvetes .sec-header h2     { color: var(--roxo); }
 #sorvetes .sec-header p      { color: var(--roxo-medio); font-size: 0.85rem; font-weight: 700; }
-#sorvetes .badge             { background: var(--verde); color: var(--branco); }
-#sorvetes .badge.premium     { background: var(--roxo); color: var(--amarelo); }
+#sorvetes .badge             { background: var(--roxo-medio); color: var(--branco); }
+#sorvetes .badge.premium     { background: var(--roxo); color: var(--branco); }
 #sorvetes .pill              { background: var(--roxo-bg); border-color: var(--roxo-claro); color: var(--roxo); }
 #sorvetes .premium-note      { color: var(--roxo-medio); }
-#sorvetes .premium-card      { background: var(--roxo); color: var(--amarelo); border-color: var(--roxo); }
+#sorvetes .premium-card      { background: var(--roxo); color: var(--branco); border-color: var(--roxo); }
 
 /* ── PICOLÉS ── */
 #picoles                     { background: var(--verde-bg); }
@@ -400,7 +400,7 @@ body.has-cart .page { padding-bottom: 64px; }
 #acai .sec-header h2   { color: var(--acai); }
 #acai .sec-header p    { color: var(--acai-medio); font-size: 0.85rem; font-weight: 700; }
 #acai .badge           { background: var(--acai); color: var(--branco); }
-#acai .badge.alt       { background: var(--verde); color: var(--branco); }
+#acai .badge.alt       { background: var(--acai-medio); color: var(--branco); }
 #acai .pill            { background: var(--branco); border-color: #C9A0E8; color: var(--acai); }
 #acai .tier-label      {
   font-size: 0.75rem;
