@@ -144,9 +144,12 @@ const sections = ['sorvetes', 'picoles', 'acai'].map(id => document.getElementBy
 const links    = document.querySelectorAll('nav a');
 const nav      = document.getElementById('main-nav');
 
-let navHashReady = false;
+let navHashReady  = false;
+let navScrollLock = false;
+let navLockTimer  = null;
 
 function updateActiveNav() {
+  if (navScrollLock) return;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 10;
   const threshold = window.scrollY + nav.offsetHeight + 10;
   let active = sections[0];
@@ -163,6 +166,24 @@ function updateActiveNav() {
     history.replaceState(null, '', '#' + active.id);
   }
 }
+
+// When a nav link is clicked, immediately mark it active and freeze
+// updateActiveNav for the duration of the smooth scroll so the active
+// state and hash don't flicker through every section on the way.
+links.forEach(link => {
+  link.addEventListener('click', () => {
+    links.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+    navScrollLock = true;
+    navHashReady  = false;
+    clearTimeout(navLockTimer);
+    navLockTimer = setTimeout(() => {
+      navScrollLock = false;
+      navHashReady  = true;
+      updateActiveNav();
+    }, 800);
+  });
+});
 
 window.addEventListener('scroll', updateActiveNav, { passive: true });
 updateActiveNav();
