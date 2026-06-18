@@ -434,6 +434,15 @@ footer .whatsapp-link {
 }
 footer .whatsapp-link:hover { opacity: 0.8; }
 
+footer .instagram-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+footer .instagram-link:hover { opacity: 0.8; }
+
 /* ── SIDE ILLUSTRATIONS ── */
 .side-deco {
   display: none;
