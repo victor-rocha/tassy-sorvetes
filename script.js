@@ -144,6 +144,8 @@ const sections = ['sorvetes', 'picoles', 'acai'].map(id => document.getElementBy
 const links    = document.querySelectorAll('nav a');
 const nav      = document.getElementById('main-nav');
 
+let navHashReady = false;
+
 function updateActiveNav() {
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 10;
   const threshold = window.scrollY + nav.offsetHeight + 10;
@@ -157,7 +159,26 @@ function updateActiveNav() {
   }
   links.forEach(l => l.classList.remove('active'));
   document.querySelector(`nav a[href="#${active.id}"]`)?.classList.add('active');
+  if (navHashReady && '#' + active.id !== window.location.hash) {
+    history.replaceState(null, '', '#' + active.id);
+  }
 }
 
 window.addEventListener('scroll', updateActiveNav, { passive: true });
 updateActiveNav();
+
+// On direct hash navigation (e.g. tassysorvetes.com.br/#acai), scroll to the
+// section manually with instant behaviour — bypasses a smooth-scroll timing bug
+// in iOS Safari that prevents the browser's native anchor jump from completing.
+const initialHash = window.location.hash;
+if (initialHash) {
+  const target = document.querySelector(initialHash);
+  if (target) {
+    setTimeout(() => {
+      window.scrollTo({ top: target.offsetTop - nav.offsetHeight, behavior: 'instant' });
+    }, 0);
+  }
+}
+
+// Enable hash-on-scroll updates after the initial scroll settles.
+setTimeout(() => { navHashReady = true; }, 200);
