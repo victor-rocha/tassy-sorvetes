@@ -309,7 +309,6 @@ body.has-cart .page { padding-bottom: 64px; }
   .order-cart-btn  { flex: 0 0 100%; justify-content: center; }
   body.has-cart .page { padding-bottom: 96px; }
 
-  .picoles-col .grid { grid-template-columns: 1fr; }
 }
 
 /* ── PICOLÉS BULK NOTE ── */
@@ -440,4 +439,15 @@ footer .whatsapp-link:hover { opacity: 0.8; }
   .side-deco            { display: block; }
   .side-deco--left      { left: 1.5vw; }
   .side-deco--right     { right: 1.5vw; }
+}
+
+@media (max-width: 600px) {
+  .picoles-cols { grid-template-columns: 1fr; }
+  .picoles-col:first-child {
+    border-right: none;
+    border-bottom: 2px solid var(--verde-claro);
+    padding-right: 0;
+    padding-bottom: 16px;
+  }
+  .picoles-col:last-child { padding-top: 16px; }
 }
